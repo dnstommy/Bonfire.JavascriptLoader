@@ -1,0 +1,16 @@
+{
+  "name": "bonfire-react",
+  "version": "1.0.0",
+  "description": "A simple ASP.NET implementation to render React components modulary via a page builder CMS.",
+  "main": "index.js",
+  "scripts": {
+    "build": "uglifyjs ./src/Bonfire.React/Assets/loader.js --compress --mangle --screw-ie8 -o ./src/Bonfire.React/Assets/loader.min.js"
+  },
+  "author": "Javier Carmona <jsc@buildabonfire.com> (http://buildabonfire.com/)",
+  "license": "MIT",
+  "devDependencies": {
+    "gulp": "3.9.1",
+    "gulp-inject": "4.0.0",
+    "uglify-js": "2.6.2"
+  }
+}

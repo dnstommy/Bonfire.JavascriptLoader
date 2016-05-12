@@ -1,0 +1,9 @@
+*.suo
+.git/
+.idea/
+.vs/
+node_modules/
+packages/
+publish/
+src/**/[Bb]in/
+src/**/[Oo]bj/
