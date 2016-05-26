@@ -2,16 +2,11 @@
 {
     public class ReactConfiguration
     {
-        private static string _global = "__ReactLoader";
+        public static string Global { get; private set; } = "__ReactLoader";
 
-        public static string Global
+        public static void SetGlobal(string global)
         {
-            get { return _global; }
-        }
-
-        public static void setGlobal(string global)
-        {
-            _global = global;
+            Global = global;
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Bonfire.React.Core
 {
     public class ReactComponent
     {
-        protected object _props;
-        protected string _stringifiedProps;
+        private object _props;
+        private string _stringifiedProps;
         public string ComponentName { get; set; }
         public string ContainerId { get; set; }
         public string ContainerClass { get; set; }
