@@ -49,11 +49,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import app from './app';
+import App from './App';
 
 // Register components
 const components = {
-  ...app
+  App
 };
 
 // Use the exposed initilization method to
@@ -71,7 +71,7 @@ window.__JavascriptLoader.init((c) => {
 });
 ```
 
-#### app.js
+#### App.js
 
 ```js
 import React from 'react';
