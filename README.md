@@ -11,15 +11,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React</title>
+    <title>JavascriptLoader</title>
 
-    @Html.React().InitLoaderJavascript()
+    @Html.JavascriptLoader().InitLoaderJavascript()
   </head>
   <body>
-    @Html.React().Render("App", new { title: "Hello World!" })
+    @Html.JavascriptLoader().Render("App", new { title: "Hello World!" })
 
     <script src="main.js"></script>
-    @Html.React().InitComponentsJavascript()
+    @Html.JavascriptLoader().InitComponentsJavascript()
   </body>
 </html>
 ```
@@ -30,15 +30,15 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>React</title>
+    <title>JavascriptLoader</title>
 
-    <script>window.__ReactLoader=function(){function n(n,r,t){var u={name:n,id:r,props:t};return e?e(u):void i.push(u)}function r(n){e=n,i.reverse().reduceRight(function(n,r,t){return e(r),i.splice(t,1),r},{})}var e,i=[];return{add:n,init:r}}();</script>
+    <script>window.__JavascriptLoader=function(){function n(n,r,t){var u={name:n,id:r,props:t};return e?e(u):void i.push(u)}function r(n){e=n,i.reverse().reduceRight(function(n,r,t){return e(r),i.splice(t,1),r},{})}var e,i=[];return{add:n,init:r}}();</script>
   </head>
   <body>
     <div id="react_249sdh9783"></div>  
 
     <script src="main.js"></script>
-    <script>window.__ReactLoader.add('App', 'react_249sdh9783', { title: 'Hello World!' });</script>
+    <script>window.__JavascriptLoader.add('App', 'react_249sdh9783', { title: 'Hello World!' });</script>
   </body>
 </html>
 ```
@@ -58,7 +58,7 @@ const components = {
 
 // Use the exposed initilization method to
 // render all the components on the screen
-window.__ReactLoader.init((c) => {
+window.__JavascriptLoader.init((c) => {
   const element = document.getElementById(c.id);
   const component = components[c.name];
 
@@ -88,5 +88,5 @@ class App extends React.Component {
   }
 }
 
-export App;
+export default App;
 ```
