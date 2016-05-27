@@ -7,8 +7,8 @@
     <ProjectGuid>{5F404289-1A7C-45EC-A8A0-7DE8163A2182}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bonfire.React</RootNamespace>
-    <AssemblyName>Bonfire.React</AssemblyName>
+    <RootNamespace>Bonfire.JavascriptLoader</RootNamespace>
+    <AssemblyName>Bonfire.JavascriptLoader</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
@@ -66,12 +66,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Core\IJavascriptLoaderComponent.cs" />
     <Compile Include="HtmlHelpersExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Core\ReactComponent.cs" />
-    <Compile Include="Core\ReactConfiguration.cs" />
-    <Compile Include="Core\ReactEnvironment.cs" />
-    <Compile Include="Core\ReactHtmlHelper.cs" />
+    <Compile Include="Components\ReactComponent.cs" />
+    <Compile Include="Core\JavascriptLoaderConfiguration.cs" />
+    <Compile Include="Core\JavascriptLoaderEnvironment.cs" />
+    <Compile Include="Core\JavascriptLoaderHtmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

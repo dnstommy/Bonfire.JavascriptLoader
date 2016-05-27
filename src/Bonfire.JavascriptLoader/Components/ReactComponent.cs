@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Web;
 using System.Web.Helpers;
+using Bonfire.JavascriptLoader.Core;
 
-namespace Bonfire.React.Core
+namespace Bonfire.JavascriptLoader.Components
 {
-    public class ReactComponent
+    public class ReactComponent : IJavascriptLoaderComponent
     {
         private object _props;
         private string _stringifiedProps;

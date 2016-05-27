@@ -4,11 +4,11 @@ var gulp = require('gulp');
 var inject = require('gulp-inject');
 var uglify = require('uglify-js');
 
-var ASSET_PATH = './src/Bonfire.React/Assets';
-var INJECT_PATH = './src/Bonfire.React/Core';
+var ASSET_PATH = './src/Bonfire.JavascriptLoader/Assets';
+var INJECT_PATH = './src/Bonfire.JavascriptLoader/Core';
 
 gulp.task('build', function() {
-  gulp.src(INJECT_PATH + '/ReactHtmlHelper.cs')
+  gulp.src(INJECT_PATH + '/JavascriptLoaderHtmlHelper.cs')
     .pipe(inject(gulp.src(ASSET_PATH + '/loader.js'), {
       starttag: '/*INJECT:JS*/',
       endtag: '/*ENDINJECT*/',

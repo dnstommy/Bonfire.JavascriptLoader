@@ -1,4 +1,4 @@
-# Bonfire.React
+# Bonfire.JavascriptLoader
 
 ## example
 

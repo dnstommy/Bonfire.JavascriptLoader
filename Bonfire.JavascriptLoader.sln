@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bonfire.React", "src\Bonfire.React\Bonfire.React.csproj", "{5F404289-1A7C-45EC-A8A0-7DE8163A2182}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bonfire.JavascriptLoader", "src\Bonfire.JavascriptLoader\Bonfire.JavascriptLoader.csproj", "{5F404289-1A7C-45EC-A8A0-7DE8163A2182}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bonfire.React.Tests", "src\Bonfire.React.Tests\Bonfire.React.Tests.csproj", "{F33815EC-99B5-43DA-BAFF-22EC41827609}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bonfire.JavascriptLoader.Tests", "src\Bonfire.JavascriptLoader.Tests\Bonfire.JavascriptLoader.Tests.csproj", "{F33815EC-99B5-43DA-BAFF-22EC41827609}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

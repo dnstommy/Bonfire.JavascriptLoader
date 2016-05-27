@@ -2,18 +2,18 @@ using System;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Bonfire.React.Core
+namespace Bonfire.JavascriptLoader.Core
 {
-    public class ReactHtmlHelper
+    public class JavascriptLoaderHtmlHelper
     {
         public HtmlHelper HtmlHelper { get; set; }
 
-        private static ReactEnvironment Environment
+        private static JavascriptLoaderEnvironment Environment
         {
-            get { return ReactEnvironment.Current; }
+            get { return JavascriptLoaderEnvironment.Current; }
         }
 
-        public ReactHtmlHelper(HtmlHelper htmlHelper)
+        public JavascriptLoaderHtmlHelper(HtmlHelper htmlHelper)
         {
             HtmlHelper = htmlHelper;
         }
@@ -27,14 +27,14 @@ namespace Bonfire.React.Core
         {
             if (!string.IsNullOrEmpty(global))
             {
-                ReactConfiguration.SetGlobal(global);
+                JavascriptLoaderConfiguration.SetGlobal(global);
             }
 
             var loaderScript = /*INJECT:JS*/"function(){function n(n,r,t){var u={name:n,id:r,props:t};return e?e(u):void i.push(u)}function r(n){e=n,i.reverse().reduceRight(function(n,r,t){return e(r),i.splice(t,1),r},{})}var e,i=[];return{add:n,init:r}}();"/*ENDINJECT*/;
 
             var script = new TagBuilder("script")
             {
-                InnerHtml = string.Format("window.{0}={1}", ReactConfiguration.Global, loaderScript)
+                InnerHtml = string.Format("window.{0}={1}", JavascriptLoaderConfiguration.Global, loaderScript)
             };
 
             return new HtmlString(script.ToString());
@@ -94,7 +94,7 @@ namespace Bonfire.React.Core
 
             var script = new TagBuilder("script")
             {
-                InnerHtml = component.RenderJavascript(ReactConfiguration.Global)
+                InnerHtml = component.RenderJavascript(JavascriptLoaderConfiguration.Global)
             };
 
             return new HtmlString(html + System.Environment.NewLine + script);
@@ -141,7 +141,7 @@ namespace Bonfire.React.Core
         /// </summary>
         /// <param name="component"></param>
         /// <param name="withInit"></param>
-        public void EndPreRender(ReactComponent component, bool withInit)
+        public void EndPreRender(IJavascriptLoaderComponent component, bool withInit)
         {
             if (!withInit)
             {
@@ -152,7 +152,7 @@ namespace Bonfire.React.Core
 
             var script = new TagBuilder("script")
             {
-                InnerHtml = component.RenderJavascript(ReactConfiguration.Global)
+                InnerHtml = component.RenderJavascript(JavascriptLoaderConfiguration.Global)
             };
 
             HtmlHelper.ViewContext.Writer.Write(component.RenderClosingTag() + System.Environment.NewLine + script);
@@ -161,11 +161,11 @@ namespace Bonfire.React.Core
 
     public class ReactPreRenderChunk : IDisposable
     {
-        private readonly ReactHtmlHelper _helper;
-        private readonly ReactComponent _component;
+        private readonly JavascriptLoaderHtmlHelper _helper;
+        private readonly IJavascriptLoaderComponent _component;
         private readonly bool _withInit;
 
-        public ReactPreRenderChunk(ReactHtmlHelper helper, ReactComponent component, bool withInit)
+        public ReactPreRenderChunk(JavascriptLoaderHtmlHelper helper, IJavascriptLoaderComponent component, bool withInit)
         {
             _helper = helper;
             _component = component;

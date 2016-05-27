@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Bonfire.React.Tests
+namespace Bonfire.JavascriptLoader.Tests
 {
     [TestClass]
     public class UnitTest1

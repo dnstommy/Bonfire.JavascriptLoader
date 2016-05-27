@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Bonfire.React")]
+[assembly: AssemblyTitle("Bonfire.JavascriptLoader.Tests")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Bonfire.React")]
+[assembly: AssemblyProduct("Bonfire.JavascriptLoader.Tests")]
 [assembly: AssemblyCopyright("Copyright ©  2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("5f404289-1a7c-45ec-a8a0-7de8163a2182")]
+[assembly: Guid("f33815ec-99b5-43da-baff-22ec41827609")]
 
 // Version information for an assembly consists of the following four values:
 //

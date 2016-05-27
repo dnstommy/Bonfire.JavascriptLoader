@@ -6,8 +6,8 @@
     <ProjectGuid>{F33815EC-99B5-43DA-BAFF-22EC41827609}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bonfire.React.Tests</RootNamespace>
-    <AssemblyName>Bonfire.React.Tests</AssemblyName>
+    <RootNamespace>Bonfire.JavascriptLoader.Tests</RootNamespace>
+    <AssemblyName>Bonfire.JavascriptLoader.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -54,9 +54,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Bonfire.React\Bonfire.React.csproj">
+    <ProjectReference Include="..\Bonfire.JavascriptLoader\Bonfire.JavascriptLoader.csproj">
       <Project>{5f404289-1a7c-45ec-a8a0-7de8163a2182}</Project>
-      <Name>Bonfire.React</Name>
+      <Name>Bonfire.JavascriptLoader</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>
