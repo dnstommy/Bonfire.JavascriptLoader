@@ -6,6 +6,7 @@ import browserify from 'gulp-ignite-browserify';
 import babelify from 'babelify';
 import inject from 'gulp-inject';
 import uglify from 'uglify-js';
+import yargs from 'yargs';
 
 const ASSET_PATH = './src/Bonfire.JavascriptLoader/Assets';
 const INJECT_PATH = './src/Bonfire.JavascriptLoader/Core';
@@ -30,10 +31,13 @@ const tasks = [
   buildTask,
 ];
 
+const filename = yargs.argv.filename || yargs.argv.f || 'main.js';
+
 const options = {
   browserify: {
-    src: './src/Bonfire.JavascriptLoader.Demo/Assets/main.js',
+    src: `./src/Bonfire.JavascriptLoader.Demo/Assets/${filename}`,
     dest: './src/Bonfire.JavascriptLoader.Demo/Content/js',
+    filename: filename,
     options: {
       transform: [babelify],
     },
