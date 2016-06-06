@@ -19727,7 +19727,9 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _components = require('./components');
 
-var _components2 = _interopRequireDefault(_components);
+var components = _interopRequireWildcard(_components);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19735,7 +19737,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // render all the components on the screen
 window.__JavascriptLoader.init(function (c) {
   var element = document.getElementById(c.id);
-  var component = _components2.default[c.name];
+  var component = components[c.name];
 
   if (!element || !component) return;
 

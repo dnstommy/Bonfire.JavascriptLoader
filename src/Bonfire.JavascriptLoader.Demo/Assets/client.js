@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import components from './components';
+import * as components from './components';
 
 // Use the exposed initilization method to
 // render all the components on the screen

@@ -40,6 +40,7 @@ const options = {
     filename: filename,
     options: {
       transform: [babelify],
+      standalone: filename === 'client.js' ? false : '__JavascriptLoader',
     },
     watchFiles: [
       './src/Bonfire.JavascriptLoader.Demo/Assets/*',

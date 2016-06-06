@@ -35,7 +35,13 @@ namespace Bonfire.JavascriptLoader.Components
 
         public string RenderHtml()
         {
-            var preRenderedHtml = _environment.Execute<string>(RenderJavascript(JavascriptLoaderConfiguration.Global)); ;
+            var script = string.Format(
+                "{2}.ReactDOMServer.renderToString({2}.React.createElement({2}.Components.{0}, {1}));",
+                ComponentName,
+                new HtmlString(_stringifiedProps),
+                JavascriptLoaderConfiguration.Global
+            );
+            var preRenderedHtml = _environment.Execute<string>(script);
 
             return RenderOpeningTag() + preRenderedHtml + RenderClosingTag();
         }
@@ -51,7 +57,7 @@ namespace Bonfire.JavascriptLoader.Components
             );
         }
 
-        private string GenerateId()
+        private static string GenerateId()
         {
             return "react_" + Convert.ToBase64String(Guid.NewGuid().ToByteArray())
                 .Replace("/", string.Empty)

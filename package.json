@@ -4,7 +4,7 @@
   "description": "A simple ASP.NET implementation to render React components modulary via a page builder CMS.",
   "main": "index.js",
   "scripts": {
-    "build": "uglifyjs ./src/Bonfire.JavascriptLoader/Assets/loader.js --compress --mangle --screw-ie8 -o ./src/Bonfire.JavascriptLoader/Assets/loader.min.js"
+    "build": "gulp browserify -f client.js && gulp browserify -f server.js"
   },
   "author": "Javier Carmona <jsc@buildabonfire.com> (http://buildabonfire.com/)",
   "license": "MIT",

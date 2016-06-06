@@ -1,4 +1,4 @@
-(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.__JavascriptLoader = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -19144,6 +19144,11 @@ exports.default = {
 },{"./Title.jsx":165}],167:[function(require,module,exports){
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.Components = exports.ReactDOMServer = exports.React = undefined;
+
 var _react = require('react');
 
 var _react2 = _interopRequireDefault(_react);
@@ -19158,15 +19163,9 @@ var _components2 = _interopRequireDefault(_components);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// Use the exposed initilization method to
-// render all the components on the screen
-window.__JavascriptLoader.init(function (c) {
-  var element = document.getElementById(c.id);
-  var component = _components2.default[c.name];
+exports.React = _react2.default;
+exports.ReactDOMServer = _server2.default;
+exports.Components = _components2.default;
 
-  if (!element || !component) return;
-
-  _server2.default.renderToString(_react2.default.createElement(component, c.props || {}), element);
+},{"./components":166,"react":164,"react-dom/server":28}]},{},[167])(167)
 });
-
-},{"./components":166,"react":164,"react-dom/server":28}]},{},[167]);
