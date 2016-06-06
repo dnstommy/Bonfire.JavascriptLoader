@@ -18,7 +18,7 @@
   <body>
     @Html.JavascriptLoader().Render("App", new { title: "Hello World!" })
 
-    <script src="main.js"></script>
+    <script src="client.js"></script>
     @Html.JavascriptLoader().InitComponentsJavascript()
   </body>
 </html>
@@ -37,24 +37,18 @@
   <body>
     <div id="react_249sdh9783"></div>  
 
-    <script src="main.js"></script>
+    <script src="client.js"></script>
     <script>window.__JavascriptLoader.add('App', 'react_249sdh9783', { title: 'Hello World!' });</script>
   </body>
 </html>
 ```
 
-#### main.js
+#### client.js
 
 ```js
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import App from './App';
-
-// Register components
-const components = {
-  App
-};
+import components from './components';
 
 // Use the exposed initilization method to
 // render all the components on the screen
@@ -71,7 +65,40 @@ window.__JavascriptLoader.init((c) => {
 });
 ```
 
-#### App.js
+#### server.js
+
+```js
+import React from 'react';
+import ReactDOMServer from 'react-dom/server';
+import components from './components';
+
+// Use the exposed initilization method to
+// render all the components on the screen
+window.__JavascriptLoader.init((c) => {
+  const element = document.getElementById(c.id);
+  const component = components[c.name];
+
+  if (!element || !component) return;
+
+  ReactDOMServer.renderToString(
+    React.createElement(component, c.props || {}),
+    element
+  );
+});
+```
+
+#### components.js
+
+```js
+import Title from './Title.jsx';
+
+// Register components
+export default {
+  Title,
+};
+```
+
+#### Title.jsx
 
 ```js
 import React from 'react';

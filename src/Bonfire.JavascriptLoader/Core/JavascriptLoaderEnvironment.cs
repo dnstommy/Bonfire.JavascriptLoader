@@ -1,7 +1,9 @@
-﻿using Bonfire.JavascriptLoader.Components;
+using System;
+using Bonfire.JavascriptLoader.Components;
 using System.Collections.Generic;
 using System.Text;
 using System.Web;
+using System.Web.Mvc;
 
 namespace Bonfire.JavascriptLoader.Core
 {
@@ -20,7 +22,7 @@ namespace Bonfire.JavascriptLoader.Core
 
         public IJavascriptLoaderComponent CreateComponent(string name, object props, bool withInit, string id)
         {
-            var component = new ReactComponent(name, props, id);
+            var component = new ReactComponent(this, name, props, id);
 
             if (!withInit)
             {
@@ -41,6 +43,26 @@ namespace Bonfire.JavascriptLoader.Core
             }
 
             return script.ToString();
+        }
+
+        public string GetLoaderScript()
+        {
+            var loaderScript = /*INJECT:JS*/"function(){function n(n,r,t){var u={name:n,id:r,props:t};return e?e(u):void i.push(u)}function r(n){e=n,i.reverse().reduceRight(function(n,r,t){return e(r),i.splice(t,1),r},{})}var e,i=[];return{add:n,init:r}}();"/*ENDINJECT*/;
+            var script = new TagBuilder("script")
+            {
+                InnerHtml = string.Format("window.{0}={1}", JavascriptLoaderConfiguration.Global, loaderScript)
+            };
+
+            return script.ToString();
+        }
+
+        public virtual string Execute<T>(string code)
+        {
+            // Take Loader Script => GetLoaderScript();
+            // Take Server Script => Server.js;
+            // Take Code => code
+            // Evaluate It and return it
+            return "";
         }
     }
 }

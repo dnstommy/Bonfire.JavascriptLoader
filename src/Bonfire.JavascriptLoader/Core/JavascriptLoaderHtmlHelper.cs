@@ -30,14 +30,7 @@ namespace Bonfire.JavascriptLoader.Core
                 JavascriptLoaderConfiguration.SetGlobal(global);
             }
 
-            var loaderScript = /*INJECT:JS*/"function(){function n(n,r,t){var u={name:n,id:r,props:t};return e?e(u):void i.push(u)}function r(n){e=n,i.reverse().reduceRight(function(n,r,t){return e(r),i.splice(t,1),r},{})}var e,i=[];return{add:n,init:r}}();"/*ENDINJECT*/;
-
-            var script = new TagBuilder("script")
-            {
-                InnerHtml = string.Format("window.{0}={1}", JavascriptLoaderConfiguration.Global, loaderScript)
-            };
-
-            return new HtmlString(script.ToString());
+            return new HtmlString(Environment.GetLoaderScript());
         }
 
         /// <summary>

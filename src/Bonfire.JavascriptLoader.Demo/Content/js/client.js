@@ -19725,6 +19725,30 @@ var _reactDom = require('react-dom');
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
+var _components = require('./components');
+
+var _components2 = _interopRequireDefault(_components);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// Use the exposed initilization method to
+// render all the components on the screen
+window.__JavascriptLoader.init(function (c) {
+  var element = document.getElementById(c.id);
+  var component = _components2.default[c.name];
+
+  if (!element || !component) return;
+
+  _reactDom2.default.render(_react2.default.createElement(component, c.props || {}), element);
+});
+
+},{"./components":170,"react":167,"react-dom":28}],170:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _Title = require('./Title.jsx');
 
 var _Title2 = _interopRequireDefault(_Title);
@@ -19732,19 +19756,8 @@ var _Title2 = _interopRequireDefault(_Title);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // Register components
-var components = {
+exports.default = {
   Title: _Title2.default
 };
 
-// Use the exposed initilization method to
-// render all the components on the screen
-window.__JavascriptLoader.init(function (c) {
-  var element = document.getElementById(c.id);
-  var component = components[c.name];
-
-  if (!element || !component) return;
-
-  _reactDom2.default.render(_react2.default.createElement(component, c.props || {}), element);
-});
-
-},{"./Title.jsx":168,"react":167,"react-dom":28}]},{},[169]);
+},{"./Title.jsx":168}]},{},[169]);

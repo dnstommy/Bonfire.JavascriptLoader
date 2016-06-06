@@ -7,6 +7,7 @@ namespace Bonfire.JavascriptLoader.Components
 {
     public class ReactComponent : IJavascriptLoaderComponent
     {
+        private readonly JavascriptLoaderEnvironment _environment;
         private object _props;
         private string _stringifiedProps;
         public string ComponentName { get; set; }
@@ -23,8 +24,9 @@ namespace Bonfire.JavascriptLoader.Components
             }
         }
 
-        public ReactComponent(string name, object props, string id)
+        public ReactComponent(JavascriptLoaderEnvironment environment, string name, object props, string id)
         {
+            _environment = environment;
             ComponentName = name;
             ContainerId = string.IsNullOrEmpty(id) ? GenerateId() : id;
             ContainerTag = "div";
@@ -33,7 +35,9 @@ namespace Bonfire.JavascriptLoader.Components
 
         public string RenderHtml()
         {
-            return RenderOpeningTag() + RenderClosingTag();
+            var preRenderedHtml = _environment.Execute<string>(RenderJavascript(JavascriptLoaderConfiguration.Global)); ;
+
+            return RenderOpeningTag() + preRenderedHtml + RenderClosingTag();
         }
 
         public string RenderJavascript(string globalVar)

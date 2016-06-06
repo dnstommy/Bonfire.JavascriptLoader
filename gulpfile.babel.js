@@ -14,7 +14,7 @@ const INJECT_PATH = './src/Bonfire.JavascriptLoader/Core';
 const buildTask = {
   name: 'build',
   fn() {
-    return gulp.src(INJECT_PATH + '/JavascriptLoaderHtmlHelper.cs')
+    return gulp.src(INJECT_PATH + '/JavascriptLoaderEnvironment.cs')
       .pipe(inject(gulp.src(`${ASSET_PATH}/loader.js`), {
         starttag: '/*INJECT:JS*/',
         endtag: '/*ENDINJECT*/',
@@ -31,7 +31,7 @@ const tasks = [
   buildTask,
 ];
 
-const filename = yargs.argv.filename || yargs.argv.f || 'main.js';
+const filename = yargs.argv.filename || yargs.argv.f || 'client.js';
 
 const options = {
   browserify: {

@@ -1,12 +1,6 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
-import Title from './Title.jsx';
-
-// Register components
-const components = {
-  Title,
-};
+import ReactDOMServer from 'react-dom/server';
+import components from './components';
 
 // Use the exposed initilization method to
 // render all the components on the screen
@@ -16,7 +10,7 @@ window.__JavascriptLoader.init((c) => {
 
   if (!element || !component) return;
 
-  ReactDOM.render(
+  ReactDOMServer.renderToString(
     React.createElement(component, c.props || {}),
     element
   );
