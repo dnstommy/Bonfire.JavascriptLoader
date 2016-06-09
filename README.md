@@ -31,13 +31,13 @@ public class JavascriptLoaderConfig
     <meta charset="utf-8">
     <title>JavascriptLoader</title>
 
-    @Html.JavascriptLoader().Loader()
+    @Html.Javascript().Loader()
   </head>
   <body>
-    @Html.JavascriptLoader().Render("App", new { title: "Hello World!" })
+    @Html.Javascript().Render("App", new { title: "Hello World!" })
 
     <script src="client.js"></script>
-    @Html.JavascriptLoader().Components()
+    @Html.Javascript().Components()
   </body>
 </html>
 ```
