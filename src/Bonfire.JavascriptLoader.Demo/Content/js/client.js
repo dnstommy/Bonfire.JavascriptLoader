@@ -19666,7 +19666,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 module.exports = require('./lib/React');
 
 },{"./lib/React":54}],168:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -19674,7 +19674,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _react = require('react');
+var _react = require("react");
 
 var _react2 = _interopRequireDefault(_react);
 
@@ -19696,12 +19696,22 @@ var Title = function (_React$Component) {
   }
 
   _createClass(Title, [{
-    key: 'render',
+    key: "handleClick",
+    value: function handleClick(saying) {
+      alert(saying);
+    }
+  }, {
+    key: "render",
     value: function render() {
       return _react2.default.createElement(
-        'h1',
+        "div",
         null,
-        this.props.title
+        _react2.default.createElement("img", { src: "http://lorempixel.com/600/400?id={this.props.title}" }),
+        _react2.default.createElement(
+          "h1",
+          { className: "chris", onClick: this.handleClick.bind(this, this.props.title) },
+          this.props.title
+        )
       );
     }
   }]);
@@ -19727,9 +19737,7 @@ var _reactDom2 = _interopRequireDefault(_reactDom);
 
 var _components = require('./components');
 
-var components = _interopRequireWildcard(_components);
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+var _components2 = _interopRequireDefault(_components);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19737,7 +19745,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 // render all the components on the screen
 window.__JavascriptLoader.init(function (c) {
   var element = document.getElementById(c.id);
-  var component = components[c.name];
+  var component = _components2.default[c.name];
 
   if (!element || !component) return;
 

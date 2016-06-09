@@ -5,9 +5,12 @@ namespace Bonfire.JavascriptLoader
 {
     public static class HtmlHelperExtensions
     {
-        public static JavascriptLoaderHtmlHelper Javascript(this HtmlHelper html)
+        public static JavascriptHtmlHelper Javascript(this HtmlHelper html)
         {
-            return new JavascriptLoaderHtmlHelper(html);
+            return new JavascriptHtmlHelper(
+                Initializer.Container.GetInstance<IJavascriptEnvironment>(),
+                Initializer.Container.GetInstance<IJavascriptConfiguration>()
+            );
         }
     }
 }

@@ -70,6 +70,18 @@
       <HintPath>..\..\packages\React.Core.2.4.0\lib\net40\React.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="SimpleInjector, Version=3.1.5.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimpleInjector.3.1.5\lib\net45\SimpleInjector.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web, Version=3.1.5.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimpleInjector.Integration.Web.3.1.5\lib\net40\SimpleInjector.Integration.Web.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SimpleInjector.Integration.Web.Mvc, Version=3.1.5.0, Culture=neutral, PublicKeyToken=984cb50dea722e99, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SimpleInjector.Integration.Web.Mvc.3.1.5\lib\net40\SimpleInjector.Integration.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -104,22 +116,31 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\IJavascriptLoaderComponent.cs" />
+    <Compile Include="Core\FactoryRegistration.cs" />
+    <Compile Include="Core\IJavascriptComponent.cs" />
+    <Compile Include="Core\IJavascriptConfiguration.cs" />
+    <Compile Include="Core\IJavascriptEnvironment.cs" />
+    <Compile Include="Core\IJavascriptFactory.cs" />
+    <Compile Include="Core\Initializer.cs" />
+    <Compile Include="Core\JavascriptFactory.cs" />
     <Compile Include="HtmlHelpersExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Components\ReactComponent.cs" />
-    <Compile Include="Core\JavascriptLoaderConfiguration.cs" />
-    <Compile Include="Core\JavascriptLoaderEnvironment.cs" />
-    <Compile Include="Core\JavascriptLoaderHtmlHelper.cs" />
+    <Compile Include="Core\JavascriptComponent.cs" />
+    <Compile Include="Core\JavascriptConfiguration.cs" />
+    <Compile Include="Core\JavascriptEnvironment.cs" />
+    <Compile Include="Core\JavascriptHtmlHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\loader.js" />
+    <Compile Include="Core\EngineUtility.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
+    <PreBuildEvent>gulp build</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>

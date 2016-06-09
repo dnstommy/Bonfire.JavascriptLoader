@@ -1,4 +1,5 @@
 ﻿@using Bonfire.JavascriptLoader
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,7 +10,7 @@
     <link href="~/Content/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
     <link href="~/Content/css/main.css" rel="stylesheet" type="text/css" />
 
-    @Html.Javascript().InitLoaderJavascript()
+    @Html.Javascript().Loader()
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -37,6 +38,6 @@
 
     <script src="~/Content/js/client.js"></script>
 
-    @Html.Javascript().InitComponentsJavascript()
+    @Html.Javascript().Components()
 </body>
 </html>

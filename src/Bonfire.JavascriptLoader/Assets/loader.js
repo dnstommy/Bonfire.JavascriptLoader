@@ -12,7 +12,7 @@
           name: name,
           id: id,
           props: props,
-      }
+      };
 
       if (_render) {
           return _render(component);

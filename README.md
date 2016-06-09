@@ -2,6 +2,24 @@
 
 ## example
 
+#### \App_Start
+
+```cs
+public class JavascriptLoaderConfig
+{
+    public static void Configure()
+    {
+        var configuration = new JavascriptConfiguration();
+
+        configuration
+            .EnableServerSideRendering()
+            .AddFile("/Content/js/server.js");
+
+        Initializer.Initialize(configuration);
+    }
+}
+```
+
 #### \_Layout.cshtml
 
 ##### Razor View
@@ -13,13 +31,13 @@
     <meta charset="utf-8">
     <title>JavascriptLoader</title>
 
-    @Html.JavascriptLoader().InitLoaderJavascript()
+    @Html.JavascriptLoader().Loader()
   </head>
   <body>
     @Html.JavascriptLoader().Render("App", new { title: "Hello World!" })
 
     <script src="client.js"></script>
-    @Html.JavascriptLoader().InitComponentsJavascript()
+    @Html.JavascriptLoader().Components()
   </body>
 </html>
 ```
@@ -72,19 +90,15 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import components from './components';
 
-// Use the exposed initilization method to
-// render all the components on the screen
-window.__JavascriptLoader.init((c) => {
-  const element = document.getElementById(c.id);
-  const component = components[c.name];
+const render = (name, props) => {
+  const component = components[name];
 
-  if (!element || !component) return;
+  if (!component) return;
 
-  ReactDOMServer.renderToString(
-    React.createElement(component, c.props || {}),
-    element
-  );
-});
+  return ReactDOMServer.renderToString(React.createElement(component, props || {}));
+};
+
+export { render };
 ```
 
 #### components.js

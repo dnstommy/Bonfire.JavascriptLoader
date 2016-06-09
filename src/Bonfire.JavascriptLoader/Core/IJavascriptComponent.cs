@@ -1,15 +1,21 @@
 ﻿namespace Bonfire.JavascriptLoader.Core
 {
-    public interface IJavascriptLoaderComponent
+    public interface IJavascriptComponent
     {
         string ComponentName { get; set; }
+
         string ContainerId { get; set; }
+
         string ContainerClass { get; set; }
+
         string ContainerTag { get; set; }
+
+        bool RenderServerSide { get; set; }
+
         object Props { get; set; }
-        string RenderJavascript(string globalVar);
-        string RenderHtml();
-        string RenderOpeningTag();
-        string RenderClosingTag();
+
+        string RenderHtml(string clientGlobal);
+
+        string RenderJavascript(string serverGlobal);
     }
 }
