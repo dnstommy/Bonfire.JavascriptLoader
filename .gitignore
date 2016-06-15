@@ -256,6 +256,9 @@ paket-files/
 .git/
 .idea/
 .vs/
+build/nuget/*
+!build/releases
+!build/nuget/JavascriptLoader.nuspec
 node_modules/
 packages/
 publish/

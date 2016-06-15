@@ -10,7 +10,7 @@ namespace Bonfire.JavascriptLoader.Demo
 
             configuration
                 .EnableServerSideRendering()
-                .AddFile("/Content/js/server.js");
+                .AddFile("/Content/js/main.js");
 
             Initializer.Initialize(configuration);
         }

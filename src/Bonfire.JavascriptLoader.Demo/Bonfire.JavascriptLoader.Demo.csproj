@@ -92,14 +92,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\client.js" />
+    <Content Include="Assets\main.js" />
     <Content Include="Assets\components.js" />
-    <Content Include="Assets\server.js" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Content\js\client.js" />
-    <Content Include="Content\js\server.js" />
+    <Content Include="Content\js\main.js" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -173,7 +171,7 @@
     <Error Condition="!Exists('..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PreBuildEvent>gulp browserify -f client.js &amp;&amp; gulp browserify -f server.js</PreBuildEvent>
+    <PreBuildEvent>gulp browserify</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>

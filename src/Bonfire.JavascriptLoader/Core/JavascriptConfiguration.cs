@@ -9,7 +9,7 @@ namespace Bonfire.JavascriptLoader.Core
 
         public string ClientGlobal { get; private set; } = "__JavascriptLoader";
 
-        public string ServerGlobal { get; private set; } = "JavascriptLoader";
+        public string ServerGlobal { get; private set; } = "___JavascriptLoader";
 
         public IList<string> Files { get; set; } = new List<string>();
 

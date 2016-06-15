@@ -1,23 +1,23 @@
 {
-  "name": "bonfire-react",
+  "name": "bonfire-javascript-loader",
   "version": "1.0.0",
-  "description": "A simple ASP.NET implementation to render React components modulary via a page builder CMS.",
-  "main": "index.js",
-  "scripts": {
-    "build": "gulp browserify -f client.js && gulp browserify -f server.js"
-  },
-  "author": "Javier Carmona <jsc@buildabonfire.com> (http://buildabonfire.com/)",
-  "license": "MIT",
+  "private": true,
   "devDependencies": {
     "babel-preset-es2015": "6.9.0",
     "babel-preset-react": "6.5.0",
     "babel-preset-stage-1": "6.5.0",
     "babelify": "7.3.0",
+    "del": "2.2.0",
     "gulp": "3.9.1",
+    "gulp-dotnet-assembly-info": "0.1.11",
     "gulp-ignite": "1.2.1",
     "gulp-ignite-browserify": "1.1.1",
     "gulp-inject": "4.0.0",
-    "uglify-js": "2.6.2"
+    "gulp-msbuild": "0.3.2",
+    "nuget-runner": "0.1.8",
+    "rimraf": "2.5.2",
+    "uglify-js": "2.6.2",
+    "yargs": "4.7.1"
   },
   "dependencies": {
     "react": "15.1.0",

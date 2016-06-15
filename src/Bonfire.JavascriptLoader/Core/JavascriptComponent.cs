@@ -59,7 +59,7 @@ namespace Bonfire.JavascriptLoader.Core
                 }
                 catch (Exception ex)
                 {
-                    _environment.AddConsoleCall("error", string.Format("[Server Side Error] - ({0}) --- {1}", ComponentName, ex.InnerException.Message));
+                    _environment.AddConsoleCall("error", string.Format("[Server Side Error] - ({0}) --- {1}", ComponentName, ex.InnerException?.Message));
                 }
             }
 

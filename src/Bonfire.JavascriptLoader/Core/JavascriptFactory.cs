@@ -11,71 +11,71 @@ using JSPool;
 
 namespace Bonfire.JavascriptLoader.Core
 {
-	public class JavascriptFactory : IJavascriptFactory
-	{
-		/// <summary>
-		/// Configuration instance
-		/// </summary>
-		private readonly IJavascriptConfiguration _configuration;
+    public class JavascriptFactory : IJavascriptFactory
+    {
+        /// <summary>
+        /// Configuration instance
+        /// </summary>
+        private readonly IJavascriptConfiguration _configuration;
 
-		/// <summary>
-		/// The js engine factory instance
-		/// </summary>
-		private readonly Func<IJsEngine> _factory;
+        /// <summary>
+        /// The js engine factory instance
+        /// </summary>
+        private readonly Func<IJsEngine> _factory;
 
-		/// <summary>
-		/// The js pool instance
-		/// </summary>
-		private JsPool _pool;
+        /// <summary>
+        /// The js pool instance
+        /// </summary>
+        private JsPool _pool;
 
-		/// <summary>
-		/// Whether or not the engine has been disposed
-		/// </summary>
-		private bool _disposed;
+        /// <summary>
+        /// Whether or not the engine has been disposed
+        /// </summary>
+        private bool _disposed;
 
-	    private Exception _scriptLoadException;
+        private Exception _scriptLoadException;
 
-	    /// <summary>
-		/// Initialize the JSPool
-		/// </summary>
-		/// <param name="availableFactories"></param>
-		/// <param name="configuration"></param>
-		public JavascriptFactory(IEnumerable<FactoryRegistration> availableFactories, IJavascriptConfiguration configuration)
-		{
-			if (!configuration.RenderServerSide) return;
+        /// <summary>
+        /// Initialize the JSPool
+        /// </summary>
+        /// <param name="availableFactories"></param>
+        /// <param name="configuration"></param>
+        public JavascriptFactory(IEnumerable<FactoryRegistration> availableFactories, IJavascriptConfiguration configuration)
+        {
+            if (!configuration.RenderServerSide) return;
 
-			_configuration = configuration;
-			_factory = GetFactory(availableFactories);
-			_pool = CreatePool();
-		}
+            _configuration = configuration;
+            _factory = GetFactory(availableFactories);
+            _pool = CreatePool();
+        }
 
-		/// <summary>
-		/// Create a new js Pool
-		/// </summary>
-		/// <returns></returns>
-		private JsPool CreatePool()
-		{
-			var config = new JsPoolConfig
-			{
-				EngineFactory = _factory,
-				Initializer = LoadUserScripts
-			};
+        /// <summary>
+        /// Create a new js Pool
+        /// </summary>
+        /// <returns></returns>
+        private JsPool CreatePool()
+        {
+            var config = new JsPoolConfig
+            {
+                EngineFactory = _factory,
+                Initializer = LoadUserScripts
+            };
 
-			var pool = new JsPool(config);
-			
-			// Reset the recycle exception on recycle. If there *are* errors loading the scripts
-			// during recycle, the errors will be caught in the initializer.
-			pool.Recycled += null;
+            var pool = new JsPool(config);
 
-			return pool;
-		}
+            // Reset the recycle exception on recycle. If there *are* errors loading the scripts
+            // during recycle, the errors will be caught in the initializer.
+            pool.Recycled += null;
 
-		/// <summary>
-		/// Gets the current engine for pool
-		/// </summary>
-		/// <returns></returns>
-		public IJsEngine GetEngine()
-		{
+            return pool;
+        }
+
+        /// <summary>
+        /// Gets the current engine for pool
+        /// </summary>
+        /// <returns></returns>
+        public IJsEngine GetEngine()
+        {
             if (_scriptLoadException != null)
             {
                 // This means an exception occurred while loading the script (eg. syntax error in the file)
@@ -83,22 +83,22 @@ namespace Bonfire.JavascriptLoader.Core
             }
 
             return _pool.GetEngine();
-		}
+        }
 
-		/// <summary>
-		/// Load the user scripts provided
-		/// </summary>
-		/// <param name="engine"></param>
-		private void LoadUserScripts(IJsEngine engine)
-		{
-			foreach (var file in _configuration.Files)
-			{
-			    try
+        /// <summary>
+        /// Load the user scripts provided
+        /// </summary>
+        /// <param name="engine"></param>
+        private void LoadUserScripts(IJsEngine engine)
+        {
+            foreach (var file in _configuration.Files)
+            {
+                try
                 {
                     var contents = File.ReadAllText(file, Encoding.UTF8);
 
                     engine.Execute(contents);
-			    }
+                }
                 catch (JsRuntimeException ex)
                 {
                     // We can't simply rethrow the exception here, as it's possible this is running
@@ -115,83 +115,83 @@ namespace Bonfire.JavascriptLoader.Core
                 }
 
             }
-		}
+        }
 
-		/// <summary>
-		/// Get the js engine to use
-		/// </summary>
-		/// <returns></returns>
-		private static Func<IJsEngine> GetFactory(IEnumerable<FactoryRegistration> availableFactories)
-		{
-			var availableEngineFactories = availableFactories
-				.OrderBy(x => x.Priority)
-				.Select(x => x.Factory);
+        /// <summary>
+        /// Get the js engine to use
+        /// </summary>
+        /// <returns></returns>
+        private static Func<IJsEngine> GetFactory(IEnumerable<FactoryRegistration> availableFactories)
+        {
+            var availableEngineFactories = availableFactories
+                .OrderBy(x => x.Priority)
+                .Select(x => x.Factory);
 
-			foreach (var engineFactory in availableEngineFactories)
-			{
-				IJsEngine engine = null;
+            foreach (var engineFactory in availableEngineFactories)
+            {
+                IJsEngine engine = null;
 
-				try
-				{
-					engine = engineFactory();
+                try
+                {
+                    engine = engineFactory();
 
-					if (EngineIsUsable(engine, true))
-					{
-						return engineFactory;
-					}
-				}
-				catch (Exception ex)
-				{
-					Trace.WriteLine(string.Format("Error initialising {0}: {1}", engineFactory, ex));
-				}
-				finally
-				{
-					engine?.Dispose();
-				}
-			}
+                    if (EngineIsUsable(engine, true))
+                    {
+                        return engineFactory;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Trace.WriteLine(string.Format("Error initialising {0}: {1}", engineFactory, ex));
+                }
+                finally
+                {
+                    engine?.Dispose();
+                }
+            }
 
-			throw new Exception("No engine factory could be determined.");
-		}
+            throw new Exception("No engine factory could be determined.");
+        }
 
-		/// <summary>
-		/// Returns an engine to the pool so it can be reused
-		/// </summary>
-		/// <param name="engine">Engine to return</param>
-		public virtual void ReturnEngineToPool(IJsEngine engine)
-		{
-			// This could be called from Environment.Dispose if that class is disposed after 
-			// this class. Let's just ignore this if it's disposed.
-			if (!_disposed)
-			{
-				_pool.ReturnEngineToPool(engine);
-			}
-		}
+        /// <summary>
+        /// Returns an engine to the pool so it can be reused
+        /// </summary>
+        /// <param name="engine">Engine to return</param>
+        public virtual void ReturnEngineToPool(IJsEngine engine)
+        {
+            // This could be called from Environment.Dispose if that class is disposed after 
+            // this class. Let's just ignore this if it's disposed.
+            if (!_disposed)
+            {
+                _pool.ReturnEngineToPool(engine);
+            }
+        }
 
-		/// <summary>
-		/// Clean up all engines
-		/// </summary>
-		public virtual void Dispose()
-		{
-			_disposed = true;
+        /// <summary>
+        /// Clean up all engines
+        /// </summary>
+        public virtual void Dispose()
+        {
+            _disposed = true;
 
-			if (_pool == null) return;
+            if (_pool == null) return;
 
-			_pool.Dispose();
-			_pool = null;
-		}
+            _pool.Dispose();
+            _pool = null;
+        }
 
-		/// <summary>
-		/// Performs a sanity check to ensure the specified engine type is usable.
-		/// </summary>
-		/// <param name="engine">Engine to test</param>
-		/// <param name="allowMsie">Whether the MSIE engine can be used</param>
-		/// <returns></returns>
-		private static bool EngineIsUsable(IJsEngine engine, bool allowMsie)
-		{
-			var isUsable = engine.Evaluate<int>("1 + 1") == 2;
-			var isMsie = engine is MsieJsEngine;
+        /// <summary>
+        /// Performs a sanity check to ensure the specified engine type is usable.
+        /// </summary>
+        /// <param name="engine">Engine to test</param>
+        /// <param name="allowMsie">Whether the MSIE engine can be used</param>
+        /// <returns></returns>
+        private static bool EngineIsUsable(IJsEngine engine, bool allowMsie)
+        {
+            var isUsable = engine.Evaluate<int>("1 + 1") == 2;
+            var isMsie = engine is MsieJsEngine;
 
-			return isUsable && (!isMsie || allowMsie);
-		}
-	}
+            return isUsable && (!isMsie || allowMsie);
+        }
+    }
 }

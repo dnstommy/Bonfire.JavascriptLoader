@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>Bonfire.JavascriptLoader</id>
+    <version>1.0.0</version>
+    <title>JavascriptLoader</title>
+    <authors>Javier Carmona</authors>
+    <owners>Bonfire, Inc.</owners>
+    <licenseUrl>https://github.com/buildabonfire/Bonfire.JavascriptLoader/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/buildabonfire/Bonfire.JavascriptLoader</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Enable javascript loading for component based architecture.</description>
+    <summary>Enable javascript loading for component based architecture.</summary>
+    <copyright>Copyright 2016</copyright>
+    <tags>asp.net mvc asp javascript js react angular reactjs</tags>
+    <dependencies>
+      <dependency id="JavaScriptEngineSwitcher.Core" version="1.5.0" />
+      <dependency id="JavaScriptEngineSwitcher.Msie" version="1.5.0" />
+      <dependency id="JavaScriptEngineSwitcher.V8" version="1.5.2" />
+      <dependency id="JSPool" version="0.4.1" />
+      <dependency id="MsieJavaScriptEngine" version="1.7.0" />
+      <dependency id="Newtonsoft.Json" version="8.0.0" />
+      <dependency id="React.Core" version="2.4.0" />
+      <dependency id="SimpleInjector" version="3.1.5" />
+      <dependency id="SimpleInjector.Integration.Web" version="3.1.5" />
+      <dependency id="SimpleInjector.Integration.Web.Mvc" version="3.1.5" />
+    </dependencies>
+  </metadata>
+</package>
