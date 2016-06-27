@@ -10,18 +10,16 @@ namespace Bonfire.JavascriptLoader.Core
     {
         bool RenderServerSide { get; }
 
-        string ClientGlobal { get; }
-
-        string ServerGlobal { get; }
+        string GlobalJavascriptVar { get; }
 
         IList<string> Files { get; }
 
-        IJavascriptConfiguration SetClientGlobal(string global);
-
-        IJavascriptConfiguration SetServerGlobal(string global);
+        IJavascriptConfiguration SetGlobalJavascriptVar(string global);
 
         IJavascriptConfiguration AddFile(string file);
 
         IJavascriptConfiguration EnableServerSideRendering(bool enable);
+
+        string GetLoaderScript();
     }
 }

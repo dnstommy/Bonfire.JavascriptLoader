@@ -58,7 +58,7 @@ namespace Bonfire.JavascriptLoader.Core
             var config = new JsPoolConfig
             {
                 EngineFactory = _factory,
-                Initializer = LoadUserScripts
+                Initializer = LoadScripts
             };
 
             var pool = new JsPool(config);
@@ -89,8 +89,11 @@ namespace Bonfire.JavascriptLoader.Core
         /// Load the user scripts provided
         /// </summary>
         /// <param name="engine"></param>
-        private void LoadUserScripts(IJsEngine engine)
+        private void LoadScripts(IJsEngine engine)
         {
+            engine.Execute(string.Format("{0}={1}", _configuration.GlobalJavascriptVar, _configuration.GetLoaderScript()));
+            engine.Execute(string.Format("{0}.isServerSide=true;", _configuration.GlobalJavascriptVar));
+
             foreach (var file in _configuration.Files)
             {
                 try

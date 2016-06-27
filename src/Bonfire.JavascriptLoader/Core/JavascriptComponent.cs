@@ -34,7 +34,7 @@ namespace Bonfire.JavascriptLoader.Core
             Props = props;
         }
 
-        public string RenderHtml(string serverGlobal)
+        public string RenderHtml(string globalVar)
         {
             var attributes = string.Format("id=\"{0}\"", ContainerId);
             var html = "";
@@ -46,16 +46,9 @@ namespace Bonfire.JavascriptLoader.Core
 
             if (RenderServerSide)
             {
-                var script = string.Format(
-                    "{2}.render('{0}', {1})",
-                    ComponentName,
-                    new HtmlString(_stringifiedProps),
-                    serverGlobal
-                );
-
                 try
                 {
-                    html = _environment.Execute<string>(script);
+                    html = _environment.Execute<string>(RenderJavascript(globalVar));
                 }
                 catch (Exception ex)
                 {
@@ -66,11 +59,11 @@ namespace Bonfire.JavascriptLoader.Core
             return string.Format("<{0} {1}>{2}</{0}>", ContainerTag, attributes, html);
         }
 
-        public string RenderJavascript(string clientGlobal)
+        public string RenderJavascript(string globalVar)
         {
             return string.Format(
-                "window.{0}.add('{1}', '{2}', {3});",
-                clientGlobal,
+                "{0}.render('{1}', '{2}', {3});",
+                globalVar,
                 ComponentName, 
                 ContainerId, 
                 new HtmlString(_stringifiedProps)

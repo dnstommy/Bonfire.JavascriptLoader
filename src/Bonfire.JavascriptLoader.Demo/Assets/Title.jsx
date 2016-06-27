@@ -10,11 +10,13 @@ class Title extends React.Component {
 
   }
 
-  render() {
+    render() {
+        const { title, id } = this.props;
+
       return (
             <div>
-                <img src="http://lorempixel.com/600/400?id={this.props.title}" />
-                <h1 className="chris" onClick={this.handleClick.bind(this, this.props.title)}>{this.props.title}</h1>
+                <img src={`http://lorempixel.com/600/400?id=${id}`} />
+                <h1 className="title" onClick={this.handleClick.bind(this, title)}>{title}</h1>
             </div>
         );
   }

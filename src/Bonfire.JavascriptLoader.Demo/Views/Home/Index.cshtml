@@ -1,7 +1,6 @@
 ﻿@using Bonfire.JavascriptLoader
 
-@for (var i = 0; i < 100; i++)
+@for (var i = 0; i < 12; i++)
 {
-    @Html.Javascript().Render("Title", new { title = "Hello World, " + i })
+    @Html.Javascript().Render("Title", new { title = "Hello World", id = i }, true)
 }
-

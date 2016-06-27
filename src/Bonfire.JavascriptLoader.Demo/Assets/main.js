@@ -1,28 +1,32 @@
+/*global __JavascriptLoader*/
 import React from 'react';
 import ReactDOM from 'react-dom';
 import ReactDOMServer from 'react-dom/server';
 import components from './components';
 
-if (global.__JavascriptLoader && global.__JavascriptLoader.init) {
-  global.__JavascriptLoader.init((c) => {
-    const element = document.getElementById(c.id);
-    const component = components[c.name];
+__JavascriptLoader.init((componentsToLoad) => {
+  componentsToLoad.reverse().reduceRight((prev, c, idx) => {
+    render(c);
 
-    if (!element || !component) return;
+    componentsToLoad.splice(idx, 1);
+  }, {});
 
-    ReactDOM.render(
-      React.createElement(component, c.props || {}),
-      element
+  return render;
+});
+
+function render(component) {
+  const componentFn = components[component.name];
+
+  if (!componentFn) return;
+
+  if (__JavascriptLoader.isServerSide) {
+    return ReactDOMServer.renderToString(
+      React.createElement(componentFn, component.props || {})
     );
-  });
+  }
+
+  ReactDOM.render(
+    React.createElement(componentFn, component.props || {}),
+    document.getElementById(component.id)
+  );
 }
-
-const render = (name, props) => {
-    const component = components[name];
-
-    if (!component) return;
-
-    return ReactDOMServer.renderToString(React.createElement(component, props || {}));
-};
-
-export { render };

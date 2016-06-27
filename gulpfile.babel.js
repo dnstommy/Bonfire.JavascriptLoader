@@ -52,10 +52,10 @@ const build = {
 const injectLoaderJS = {
   name: 'inject-loaderjs',
   fn() {
-    return gulp.src(`${SRC_PATH}/Core/JavascriptLoaderEnvironment.cs`)
+    return gulp.src(`${SRC_PATH}/Core/JavascriptConfiguration.cs`)
       .pipe(inject(gulp.src(`${SRC_PATH}/Assets/loader.js`), {
         starttag: '/*INJECT:JS*/',
-        endtag: '/*ENDINJECT*/',
+        endtag: '/*ENDINJECT:JS*/',
         transform: (filepath, file) => {
           return `"${uglify.minify(file.contents.toString('utf8'), { fromString: true }).code.slice(1)}"`;
         }
@@ -117,7 +117,6 @@ const options = {
     filename: 'main.js',
     options: {
       transform: [babelify],
-      standalone: '___JavascriptLoader',
     },
     watchFiles: [
       `${DEMO_PATH}/Assets/*`,

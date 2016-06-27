@@ -1,33 +1,27 @@
 (function () {
   var _componentsToLoad = [];
-  var _render;
+  var _renderer;
 
   return {
-      add: add,
+      render: render,
       init: init
   };
 
-  function add(name, id, props) {
+  function render(name, id, props) {
       var component = {
           name: name,
           id: id,
           props: props,
       };
 
-      if (_render) {
-          return _render(component);
+      if (_renderer) {
+          return _renderer(component);
       }
 
       _componentsToLoad.push(component);
   }
 
   function init(render) {
-      _render = render;
-      _componentsToLoad.reverse().reduceRight(function (prev, component, idx) {
-          _render(component);
-          _componentsToLoad.splice(idx, 1);
-
-          return component;
-      }, {});
+      _renderer = render(_componentsToLoad);
   }
 })()

@@ -1,4 +1,4 @@
-(function(f){if(typeof exports==="object"&&typeof module!=="undefined"){module.exports=f()}else if(typeof define==="function"&&define.amd){define([],f)}else{var g;if(typeof window!=="undefined"){g=window}else if(typeof global!=="undefined"){g=global}else if(typeof self!=="undefined"){g=self}else{g=this}g.___JavascriptLoader = f()}})(function(){var define,module,exports;return (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
+(function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process){
 'use strict';
 
@@ -19845,14 +19845,19 @@ var Title = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _props = this.props;
+      var title = _props.title;
+      var id = _props.id;
+
+
       return _react2.default.createElement(
         "div",
         null,
-        _react2.default.createElement("img", { src: "http://lorempixel.com/600/400?id={this.props.title}" }),
+        _react2.default.createElement("img", { src: "http://lorempixel.com/600/400?id=" + id }),
         _react2.default.createElement(
           "h1",
-          { className: "chris", onClick: this.handleClick.bind(this, this.props.title) },
-          this.props.title
+          { className: "title", onClick: this.handleClick.bind(this, title) },
+          title
         )
       );
     }
@@ -19885,13 +19890,7 @@ exports.default = {
 };
 
 },{"./Title.jsx":172}],174:[function(require,module,exports){
-(function (global){
 'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-exports.render = undefined;
 
 var _react = require('react');
 
@@ -19911,27 +19910,29 @@ var _components2 = _interopRequireDefault(_components);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-if (global.__JavascriptLoader && global.__JavascriptLoader.init) {
-    global.__JavascriptLoader.init(function (c) {
-        var element = document.getElementById(c.id);
-        var component = _components2.default[c.name];
+/*global __JavascriptLoader*/
 
-        if (!element || !component) return;
 
-        _reactDom2.default.render(_react2.default.createElement(component, c.props || {}), element);
-    });
+__JavascriptLoader.init(function (componentsToLoad) {
+  componentsToLoad.reverse().reduceRight(function (prev, c, idx) {
+    render(c);
+
+    componentsToLoad.splice(idx, 1);
+  }, {});
+
+  return render;
+});
+
+function render(component) {
+  var componentFn = _components2.default[component.name];
+
+  if (!componentFn) return;
+
+  if (__JavascriptLoader.isServerSide) {
+    return _server2.default.renderToString(_react2.default.createElement(componentFn, component.props || {}));
+  }
+
+  _reactDom2.default.render(_react2.default.createElement(componentFn, component.props || {}), document.getElementById(component.id));
 }
 
-var render = function render(name, props) {
-    var component = _components2.default[name];
-
-    if (!component) return;
-
-    return _server2.default.renderToString(_react2.default.createElement(component, props || {}));
-};
-
-exports.render = render;
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./components":173,"react":171,"react-dom":28,"react-dom/server":29}]},{},[174])(174)
-});
+},{"./components":173,"react":171,"react-dom":28,"react-dom/server":29}]},{},[174]);

@@ -78,7 +78,7 @@ namespace Bonfire.JavascriptLoader.Core
 					component.ContainerClass = containerClass;
 				}
 
-				var html = component.RenderHtml(_configuration.ServerGlobal);
+				var html = component.RenderHtml(_configuration.GlobalJavascriptVar);
 
 				if (!withInit)
 				{
@@ -87,7 +87,7 @@ namespace Bonfire.JavascriptLoader.Core
 
 				var script = new TagBuilder("script")
 				{
-					InnerHtml = component.RenderJavascript(_configuration.ClientGlobal)
+					InnerHtml = component.RenderJavascript(_configuration.GlobalJavascriptVar)
 				};
 
 				return new HtmlString(html + System.Environment.NewLine + script);
