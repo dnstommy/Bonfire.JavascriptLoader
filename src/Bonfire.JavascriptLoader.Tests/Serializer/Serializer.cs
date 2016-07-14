@@ -9,7 +9,7 @@ namespace Bonfire.JavascriptLoader.Tests.Serializer
     public class Serializer
     {
         [TestMethod]
-        public void TestCammelCaseConversion()
+        public void TestCamelCaseConversion()
         {
             string name = "test";
             TestModel props = new TestModel {UpperCaseTest = "test data"};
