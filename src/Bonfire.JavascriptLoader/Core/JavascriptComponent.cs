@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Web;
 using System.Web.Helpers;
+using Newtonsoft.Json;
 
 namespace Bonfire.JavascriptLoader.Core
 {
@@ -9,6 +10,8 @@ namespace Bonfire.JavascriptLoader.Core
         private readonly IJavascriptEnvironment _environment;
         private object _props;
         private string _stringifiedProps;
+
+
         public string ComponentName { get; set; }
         public string ContainerId { get; set; }
         public string ContainerClass { get; set; }
@@ -20,7 +23,15 @@ namespace Bonfire.JavascriptLoader.Core
             set
             {
                 _props = value;
-                _stringifiedProps = Json.Encode(value);
+                _stringifiedProps = JsonConvert.SerializeObject(value);
+            }
+        }
+
+        public String SerializedProps
+        {
+            get
+            {
+                return _stringifiedProps;
             }
         }
 
