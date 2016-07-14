@@ -83,13 +83,18 @@ const nugetPack = {
 
 const nugetPush = {
   name: 'nuget-push',
-  fn() {
+  fn(options, end, error) {
     const nuget = Nuget();
+
+    if (!yargs.argv.key) {
+      console.log('error');
+      return error("No Api Key provided.");
+    }
 
     nuget.push(`./build/Bonfire.JavascriptLoader.${version}.nupkg`, {
       source: 'https://www.myget.org/F/bonfire/api/v2/package',
       timeout: 600,
-      apiKey: '83e4043c-0b7b-4d4f-b0ce-4f8918792dc7',
+      apiKey: yargs.argv.key,
       verbosity: 'normal',
     });
   }
