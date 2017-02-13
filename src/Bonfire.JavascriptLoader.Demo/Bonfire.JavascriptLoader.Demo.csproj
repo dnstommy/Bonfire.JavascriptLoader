@@ -49,6 +49,10 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="SimpleInjector">
       <HintPath>..\..\packages\SimpleInjector.3.1.5\lib\net45\SimpleInjector.dll</HintPath>
     </Reference>
@@ -94,6 +98,9 @@
   <ItemGroup>
     <Content Include="Assets\main.js" />
     <Content Include="Assets\components.js" />
+    <Content Include="Assets\Vue\client.js" />
+    <Content Include="Assets\Vue\main.js" />
+    <Content Include="Assets\Vue\server.js" />
     <Content Include="Content\css\bootstrap.min.css" />
     <Content Include="Content\css\main.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
@@ -120,6 +127,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Assets\Title.jsx" />
+    <Content Include="Client\components\AboutUs.vue" />
     <None Include="Properties\PublishProfiles\Demo.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

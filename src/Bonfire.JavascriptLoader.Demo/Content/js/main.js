@@ -307,7 +307,7 @@ function toArray(obj) {
  * @return {boolean}
  */
 function hasArrayNature(obj) {
-  return(
+  return (
     // not null/false
     !!obj && (
     // arrays are objects, NodeLists are functions in Safari
@@ -1129,7 +1129,8 @@ function is(x, y) {
   if (x === y) {
     // Steps 1-5, 7-10
     // Steps 6.b-6.e: +0 != -0
-    return x !== 0 || 1 / x === 1 / y;
+    // Added the nonzero y check to make Flow happy, but it is redundant
+    return x !== 0 || y !== 0 || 1 / x === 1 / y;
   } else {
     // Step 6.a: NaN == NaN
     return x !== x && y !== y;
@@ -1194,20 +1195,12 @@ var emptyFunction = require('./emptyFunction');
 var warning = emptyFunction;
 
 if (process.env.NODE_ENV !== 'production') {
-  warning = function warning(condition, format) {
-    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-      args[_key - 2] = arguments[_key];
-    }
+  (function () {
+    var printWarning = function printWarning(format) {
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
 
-    if (format === undefined) {
-      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-    }
-
-    if (format.indexOf('Failed Composite propType: ') === 0) {
-      return; // Ignore CompositeComponent proptype check.
-    }
-
-    if (!condition) {
       var argIndex = 0;
       var message = 'Warning: ' + format.replace(/%s/g, function () {
         return args[argIndex++];
@@ -1221,8 +1214,26 @@ if (process.env.NODE_ENV !== 'production') {
         // to find the callsite that caused this warning to fire.
         throw new Error(message);
       } catch (x) {}
-    }
-  };
+    };
+
+    warning = function warning(condition, format) {
+      if (format === undefined) {
+        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+      }
+
+      if (format.indexOf('Failed Composite propType: ') === 0) {
+        return; // Ignore CompositeComponent proptype check.
+      }
+
+      if (!condition) {
+        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+          args[_key2 - 2] = arguments[_key2];
+        }
+
+        printWarning.apply(undefined, [format].concat(args));
+      }
+    };
+  })();
 }
 
 module.exports = warning;
@@ -1314,7 +1325,6 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 },{}],28:[function(require,module,exports){
 // shim for using process in browser
-
 var process = module.exports = {};
 
 // cached from whatever global is present so that test runners that stub it
@@ -1325,22 +1335,84 @@ var process = module.exports = {};
 var cachedSetTimeout;
 var cachedClearTimeout;
 
+function defaultSetTimout() {
+    throw new Error('setTimeout has not been defined');
+}
+function defaultClearTimeout () {
+    throw new Error('clearTimeout has not been defined');
+}
 (function () {
-  try {
-    cachedSetTimeout = setTimeout;
-  } catch (e) {
-    cachedSetTimeout = function () {
-      throw new Error('setTimeout is not defined');
+    try {
+        if (typeof setTimeout === 'function') {
+            cachedSetTimeout = setTimeout;
+        } else {
+            cachedSetTimeout = defaultSetTimout;
+        }
+    } catch (e) {
+        cachedSetTimeout = defaultSetTimout;
     }
-  }
-  try {
-    cachedClearTimeout = clearTimeout;
-  } catch (e) {
-    cachedClearTimeout = function () {
-      throw new Error('clearTimeout is not defined');
+    try {
+        if (typeof clearTimeout === 'function') {
+            cachedClearTimeout = clearTimeout;
+        } else {
+            cachedClearTimeout = defaultClearTimeout;
+        }
+    } catch (e) {
+        cachedClearTimeout = defaultClearTimeout;
     }
-  }
 } ())
+function runTimeout(fun) {
+    if (cachedSetTimeout === setTimeout) {
+        //normal enviroments in sane situations
+        return setTimeout(fun, 0);
+    }
+    // if setTimeout wasn't available but was latter defined
+    if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+        cachedSetTimeout = setTimeout;
+        return setTimeout(fun, 0);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedSetTimeout(fun, 0);
+    } catch(e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+            return cachedSetTimeout.call(null, fun, 0);
+        } catch(e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+            return cachedSetTimeout.call(this, fun, 0);
+        }
+    }
+
+
+}
+function runClearTimeout(marker) {
+    if (cachedClearTimeout === clearTimeout) {
+        //normal enviroments in sane situations
+        return clearTimeout(marker);
+    }
+    // if clearTimeout wasn't available but was latter defined
+    if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+        cachedClearTimeout = clearTimeout;
+        return clearTimeout(marker);
+    }
+    try {
+        // when when somebody has screwed with setTimeout but no I.E. maddness
+        return cachedClearTimeout(marker);
+    } catch (e){
+        try {
+            // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+            return cachedClearTimeout.call(null, marker);
+        } catch (e){
+            // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+            // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+            return cachedClearTimeout.call(this, marker);
+        }
+    }
+
+
+
+}
 var queue = [];
 var draining = false;
 var currentQueue;
@@ -1365,7 +1437,7 @@ function drainQueue() {
     if (draining) {
         return;
     }
-    var timeout = cachedSetTimeout(cleanUpNextTick);
+    var timeout = runTimeout(cleanUpNextTick);
     draining = true;
 
     var len = queue.length;
@@ -1382,7 +1454,7 @@ function drainQueue() {
     }
     currentQueue = null;
     draining = false;
-    cachedClearTimeout(timeout);
+    runClearTimeout(timeout);
 }
 
 process.nextTick = function (fun) {
@@ -1394,7 +1466,7 @@ process.nextTick = function (fun) {
     }
     queue.push(new Item(fun, args));
     if (queue.length === 1 && !draining) {
-        cachedSetTimeout(drainQueue, 0);
+        runTimeout(drainQueue);
     }
 };
 
@@ -19859,7 +19931,7 @@ var Title = function (_React$Component) {
   function Title() {
     _classCallCheck(this, Title);
 
-    return _possibleConstructorReturn(this, Object.getPrototypeOf(Title).apply(this, arguments));
+    return _possibleConstructorReturn(this, (Title.__proto__ || Object.getPrototypeOf(Title)).apply(this, arguments));
   }
 
   _createClass(Title, [{
@@ -19870,9 +19942,9 @@ var Title = function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _props = this.props;
-      var title = _props.title;
-      var id = _props.id;
+      var _props = this.props,
+          title = _props.title,
+          id = _props.id;
 
 
       return _react2.default.createElement(
@@ -19936,8 +20008,6 @@ var _components2 = _interopRequireDefault(_components);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /*global __JavascriptLoader*/
-
-
 __JavascriptLoader.init(function (componentsToLoad) {
   componentsToLoad.reverse().reduceRight(function (prev, c, idx) {
     render(c);
